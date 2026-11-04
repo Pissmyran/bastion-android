@@ -25,7 +25,7 @@ buildscript {
     }
 }
 
-// Android Gradle Plugin 9.4.1 currently requests build-tool transitive
+// Android Gradle Plugin currently requests build-tool transitive
 // dependencies with known vulnerabilities. Keep AGP stable while selecting
 // patched buildscript-classpath versions. Explicit classpath entries above
 // make Kotlin Gradle Plugin and Commons Lang directly updateable by Dependabot;

@@ -1,8 +1,8 @@
 # Bastion for Android
 
-**Documentation:** [pissmyran.github.io/bastion_android](https://pissmyran.github.io/bastion_android/)
+**Documentation:** [myrpisset.github.io/bastion-android](https://myrpisset.github.io/bastion-android/)
 
-Bastion is an SSH client. This repo holds the version for Android, built with Kotlin, Gradle and Apache MINA SSHD. The other platforms have their own repos: [Bastion for Apple](https://github.com/pissmyran/bastion_apple), [Bastion for Linux](https://github.com/pissmyran/bastion_linux), [Bastion for Windows](https://github.com/pissmyran/bastion_windows). The [Bastion hub](https://github.com/pissmyran/bastion) ties them together.
+Bastion is an SSH client. This repo holds the version for Android, built with Kotlin, Gradle and Apache MINA SSHD. The other platforms have their own repos: [Bastion for Apple](https://github.com/Myrpisset/bastion-apple), [Bastion for Linux](https://github.com/Myrpisset/bastion-linux), [Bastion for Windows](https://github.com/Myrpisset/bastion-windows). The [Bastion hub](https://github.com/Myrpisset/bastion) ties them together.
 
 ## Contents
 
@@ -10,7 +10,9 @@ Bastion is an SSH client. This repo holds the version for Android, built with Ko
 | --- | --- |
 | `Android/app/` | The app: connection, SSH session and system information |
 | `Android/` | The Gradle project with its own wrapper |
-| `gradlew`, `gradle/` | Root wrapper that points to `Android/`, so tools run from the root find the project |
+| `gradlew`, `gradlew.bat` | Root scripts that run `Android/gradlew` with `--project-dir Android`, so tools run from the root find the project |
+| `gradle/` | Symbolic links to the wrapper files in `Android/gradle/wrapper/` |
+| `docs/`, `zensical.toml`, `overrides/` | The documentation site |
 
 ## Getting started
 
@@ -26,10 +28,10 @@ Build a debug APK:
 ./gradlew assembleDebug
 ```
 
-Run the commands from the repo root; the root `gradlew` forwards to `Android/`. The Android SDK must be installed and `ANDROID_HOME` set.
+Run the commands from the repo root; the root `gradlew` forwards to `Android/`. You need a JDK from 17 to 27 (the range Gradle 9.8.2 runs on) and the Android SDK with platform `android-35`, with `ANDROID_HOME` set or `sdk.dir` in `Android/local.properties`. See [Getting started](docs/getting-started.md) for details.
 
 ## More
 
-- [The documentation](https://pissmyran.github.io/bastion_android/): getting started, architecture, operations, sync format and releases
+- [The documentation](https://myrpisset.github.io/bastion-android/): getting started, architecture, operations, sync format and releases
 - [SECURITY.md](SECURITY.md): report a vulnerability
 - [CONTRIBUTING.md](CONTRIBUTING.md): contribute

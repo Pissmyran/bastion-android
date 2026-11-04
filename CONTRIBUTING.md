@@ -2,7 +2,7 @@
 
 Thanks for wanting to contribute.
 
-This repo holds Bastion for Android. Changes to the sync format are made in [Bastion for Apple](https://github.com/pissmyran/bastion_apple); shared documentation lives in the [Bastion hub](https://github.com/pissmyran/bastion).
+This repo holds Bastion for Android. Changes to the sync format are made in [Bastion for Apple](https://github.com/Myrpisset/bastion-apple); shared documentation lives in the [Bastion hub](https://github.com/Myrpisset/bastion).
 
 ## Reporting
 
@@ -13,7 +13,7 @@ This repo holds Bastion for Android. Changes to the sync format are made in [Bas
 
 1. Start from the latest `main` and work on your own branch.
 2. Keep the change small and focused.
-3. Run the tests under Commands in `AGENTS.md` and build the documentation with `zensical build --strict`.
+3. Run every command under Commands in `AGENTS.md`: the tests, the debug build and, if you changed the documentation, the strict documentation build.
 4. Open a pull request against `main` with a title that follows Conventional Commits, for example `fix: …`.
 5. Let the reviews and checks turn green before merging.
 

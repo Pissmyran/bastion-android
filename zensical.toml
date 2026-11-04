@@ -1,9 +1,9 @@
 [project]
 site_name = "Bastion for Android"
-site_url = "https://pissmyran.github.io/bastion_android/"
+site_url = "https://myrpisset.github.io/bastion-android/"
 site_description = "The SSH client for Android, written in Kotlin with Apache MINA SSHD."
-repo_url = "https://github.com/pissmyran/bastion_android"
-repo_name = "pissmyran/bastion_android"
+repo_url = "https://github.com/Myrpisset/bastion-android"
+repo_name = "Myrpisset/bastion-android"
 edit_uri = "edit/main/docs/"
 docs_dir = "docs"
 site_dir = "site"
