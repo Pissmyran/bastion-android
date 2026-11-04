@@ -2,7 +2,7 @@
 
 inheritance: true
 
-# Inherit shared rules from pissmyran/coderabbit on main. Path instructions
+# Inherit shared rules from Myrpisset/coderabbit on main. Path instructions
 # merge by path; keep local paths unique and distinct from the shared paths.
 reviews:
   path_instructions:

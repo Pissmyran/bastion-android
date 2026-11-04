@@ -52,6 +52,6 @@ hide:
 
     ---
 
-    [Bastion for Apple](https://github.com/pissmyran/bastion_apple)<br>[Bastion for Linux](https://github.com/pissmyran/bastion_linux)<br>[Bastion for Windows](https://github.com/pissmyran/bastion_windows)<br>[The Bastion hub](https://github.com/pissmyran/bastion)
+    [Bastion for Apple](https://github.com/Myrpisset/bastion-apple)<br>[Bastion for Linux](https://github.com/Myrpisset/bastion-linux)<br>[Bastion for Windows](https://github.com/Myrpisset/bastion-windows)<br>[The Bastion hub](https://github.com/Myrpisset/bastion)
 
 </div>
