@@ -19,7 +19,7 @@ Build a debug APK:
 ## In CI
 
 - **CodeQL** (GitHub's default setup) analyzes the code on every pull request and on `main`. Errors and serious security alerts block merging.
-- **The documentation** is built strictly with Zensical when `docs/` or `zensical.toml` changes in a pull request.
+- **The documentation** is built strictly with Zensical when `docs/`, `overrides/`, `zensical.toml`, or the documentation or release workflows change in a pull request.
 - **The release** waits for the checks in `.github/release-required-checks`; see [Releases](release.md).
 
 ## The dependency graph
