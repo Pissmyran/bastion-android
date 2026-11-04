@@ -16,6 +16,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.time.Duration
 import java.util.concurrent.CountDownLatch
+import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -188,6 +189,65 @@ class BastionSshSessionTest {
             }
         }
         assertTrue(changedKeyResult.isFailure, "ändrad host key måste avvisas")
+    }
+
+    @Test
+    fun `concurrent enrollments preserve both pins and reject replacement keys`() {
+        var secondServer = createServer(0)
+        val secondPort = secondServer.port
+        val executor = Executors.newFixedThreadPool(2)
+        try {
+            repeat(4) { iteration ->
+                val file = Files.createTempDirectory("bastion-concurrent-hosts").resolve("known_hosts")
+                if (iteration % 2 == 1) Files.createFile(file)
+                val ready = CountDownLatch(2)
+                val start = CountDownLatch(1)
+                val connections = listOf(port to file, secondPort to file.parent.resolve(".").resolve(file.fileName))
+                    .map { (serverPort, path) ->
+                        executor.submit {
+                            ready.countDown()
+                            check(start.await(10, TimeUnit.SECONDS))
+                            BastionSshSession("127.0.0.1", serverPort, "tester", path).use {
+                                it.connect("s3cret")
+                            }
+                        }
+                    }
+                try {
+                    assertTrue(ready.await(10, TimeUnit.SECONDS))
+                } finally {
+                    start.countDown()
+                }
+                connections.forEach { it.get(30, TimeUnit.SECONDS) }
+
+                val entries = Files.readAllLines(file).filter { it.isNotBlank() }
+                assertEquals(2, entries.size)
+                assertTrue(entries.any { it.contains("[127.0.0.1]:$port") })
+                assertTrue(entries.any { it.contains("[127.0.0.1]:$secondPort") })
+                knownHostsFile = file
+            }
+
+            listOf(port, secondPort).forEach { serverPort ->
+                BastionSshSession("127.0.0.1", serverPort, "tester", knownHostsFile).use {
+                    it.connect("s3cret")
+                }
+            }
+
+            server.stop(true)
+            secondServer.stop(true)
+            server = createServer(port)
+            secondServer = createServer(secondPort)
+            listOf(port, secondPort).forEach { serverPort ->
+                val result = runCatching {
+                    BastionSshSession("127.0.0.1", serverPort, "tester", knownHostsFile).use {
+                        it.connect("s3cret", timeoutSeconds = 5)
+                    }
+                }
+                assertTrue(result.isFailure, "a replacement host key must be rejected for port $serverPort")
+            }
+        } finally {
+            executor.shutdownNow()
+            secondServer.stop(true)
+        }
     }
 
     @Test

@@ -258,9 +258,26 @@ class BastionSshSession(
  * fail-closed: TOFU är bara giltigt om den observerade nyckeln kan persisteras
  * och senare läsas tillbaka.
  */
-private class FailClosedKnownHostsServerKeyVerifier(
+internal class FailClosedKnownHostsServerKeyVerifier(
     knownHostsFile: Path,
 ) : KnownHostsServerKeyVerifier(AcceptAllServerKeyVerifier.INSTANCE, knownHostsFile) {
+
+    companion object {
+        // All app sessions share the private trust store. One lock also covers
+        // different spellings of the same path and MINA's create/append choice.
+        private val trustStoreLock = Any()
+    }
+
+    override fun verifyServerKey(
+        clientSession: ClientSession,
+        remoteAddress: SocketAddress,
+        serverKey: PublicKey,
+    ): Boolean = synchronized(trustStoreLock) {
+        super.verifyServerKey(clientSession, remoteAddress, serverKey)
+    }
+
+    // A verifier may have cached entries before another session enrolled a key.
+    override fun checkReloadRequired(): Boolean = true
 
     override fun acceptIncompleteHostKeys(
         clientSession: ClientSession,
