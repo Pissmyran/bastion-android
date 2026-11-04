@@ -42,10 +42,12 @@ The documentation workflow also runs every hour and on each published release, a
 
 ## The dependency graph
 
-Keep the build script's `classpath` apart from the app's runtime dependencies. Android Gradle Plugin pulls in build-only libraries, and some of them can have known vulnerabilities. `Android/build.gradle.kts` handles that on the build script's classpath only:
+Keep build tool dependencies apart from the app's runtime dependencies. Android Gradle Plugin pulls in build-only libraries, and some of them can have known vulnerabilities. They are resolved on two separate classpaths, and `Android/build.gradle.kts` handles each one where it is resolved:
 
-- `classpath(...)` declares Kotlin Gradle Plugin and Commons Lang explicitly, so Renovate and Dependabot can update them.
-- `configurations.classpath { resolutionStrategy.force(...) }` selects patched versions of the remaining build-only transitives (Bouncy Castle, jose4j, JDOM).
+- **The build script's classpath** (`buildscript`): `classpath(...)` declares Kotlin Gradle Plugin and Commons Lang explicitly, so Renovate and Dependabot can update them. `configurations.classpath { resolutionStrategy.force(...) }` selects patched versions of the remaining build-only transitives (Bouncy Castle, jose4j, JDOM).
+- **The lint tool classpath** (`androidLintTool`, which AGP adds to each Android project): Android Lint runs from here, and the forcing above does not reach it. Dependency constraints raise Bouncy Castle, Guava, Commons Lang and HttpClient to patched versions. A constraint only raises a version and never lowers one.
+
+GitHub's automatic dependency submission resolves every configuration, `androidLintTool` included, and reports the result under `Android/settings.gradle.kts`. So an alert on that manifest can come from any configuration in the build. To find the configuration that resolves a flagged version, run `./gradlew :app:dependencies` and search the output for the module.
 
 If GitHub flags a vulnerable build tool dependency that only exists transitively, select the fixed version in the configuration that actually resolves it when Gradle and AGP support it, instead of filtering it out or moving it into the app. None of these dependencies may end up in the app's runtime.
 

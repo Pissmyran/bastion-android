@@ -32,6 +32,27 @@ buildscript {
 // the forced entries cover the remaining build-only transitives. None of these
 // dependencies are added to the application runtime.
 
+// Android Lint runs from its own tool classpath, the androidLintTool
+// configuration that AGP adds to each Android project. The classpath forcing in
+// buildscript above does not reach it, so lint would otherwise resolve
+// vulnerable versions of these libraries. The constraints only raise a version,
+// never lower it, and androidLintTool is never part of the application runtime.
+subprojects {
+    val patchedLintToolDependencies = listOf(
+        "org.bouncycastle:bcprov-jdk18on:1.86",
+        "org.bouncycastle:bcpkix-jdk18on:1.86",
+        "org.bouncycastle:bcutil-jdk18on:1.86",
+        "com.google.guava:guava:33.8.0-jre",
+        "org.apache.commons:commons-lang3:3.21.0",
+        "org.apache.httpcomponents:httpclient:4.5.14",
+    )
+    configurations.matching { it.name == "androidLintTool" }.configureEach {
+        patchedLintToolDependencies.forEach { notation ->
+            dependencyConstraints.add(project.dependencies.constraints.create(notation))
+        }
+    }
+}
+
 // CodeQL Default Setup uses Gradle autobuild for Kotlin and invokes the generic
 // testClasses task. Android Gradle Plugin does not create that lifecycle task,
 // so map it to an Android debug build that compiles the Java/Kotlin sources.
