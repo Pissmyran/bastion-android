@@ -25,6 +25,12 @@ When `docs/`, `zensical.toml` or `overrides/` change, also build the documentati
 zensical build --strict
 ```
 
+When `.github/workflows/wiki-sync.yml` changes, also run:
+
+```bash
+python3 -m unittest tests/test_wiki_sync.py
+```
+
 ## Rules
 
 - **Build scripts and runtime stay apart** in Gradle; see `docs/operations.md`.
