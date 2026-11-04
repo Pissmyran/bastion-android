@@ -2,7 +2,7 @@
 
 ## Before every push
 
-There are no build or test checks in CI. The tests below are the only test gate, so they run locally before every push:
+CI has no dedicated build or test job. CodeQL compiles the app during its analysis but runs no tests, so the commands below are the only test gate and run locally before every push:
 
 Test:
 
@@ -20,6 +20,9 @@ When `docs/`, `zensical.toml` or `overrides/` change, also build the documentati
 
 ```bash
 pip install --upgrade zensical
+```
+
+```bash
 zensical build --strict
 ```
 
@@ -29,7 +32,7 @@ zensical build --strict
 | --- | --- | --- |
 | **CodeQL** (GitHub's default setup) | Every pull request and `main` | Analyzes `java-kotlin` and `actions`. For Kotlin it runs Gradle autobuild, which calls the root `testClasses` task; `Android/build.gradle.kts` maps that task to `:app:assembleDebug`. Errors and high or critical security alerts block merging. |
 | **Automatic Dependency Submission (Gradle)** | Every pull request and `main` | GitHub resolves the Gradle build and submits it to the dependency graph (`submit-gradle`), which feeds Dependabot alerts. |
-| **Documentation** (`.github/workflows/docs.yml`) | Pull requests that change `docs/`, `zensical.toml` or the docs and release workflows | Builds the site strictly with Zensical. |
+| **Documentation** (`.github/workflows/docs.yml`) | Pull requests that change `docs/`, `zensical.toml` or the docs and release workflows | Builds the site strictly with Zensical. Changes to `overrides/` alone do not trigger it, so build locally. |
 | **Release** (`.github/workflows/release.yml`) | Every push to `main` | Computes the next version and waits for `.github/release-required-checks`; see [Releases](release.md). |
 | **Wiki sync** (`.github/workflows/wiki-sync.yml`) | Pushes to `main` that change `README.md` or `docs/` | Regenerates the Wiki's Home, Documentation and sidebar pages as links to the documentation in the repo. |
 

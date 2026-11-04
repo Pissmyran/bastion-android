@@ -53,8 +53,8 @@ The UI text is in Swedish.
 - **Host keys** use persistent trust on first use (TOFU) against `known_hosts` in the app's private files directory. An unknown host is accepted on first connection and written to the file; a changed key for the same host and port is rejected.
 - **Fail closed:** read, parse and write errors in `known_hosts` reject the connection and never fall back to `AcceptAllServerKeyVerifier`.
 - **Credentials** are never stored. Passwords live only in the input field and in memory for the duration of a connection, and `ConnectionCredentials.toString()` masks the password.
-- **Backups** are disabled (`android:allowBackup="false"`), so `known_hosts` is not copied off the device.
-- **Repo and tests:** keys and passwords are never stored in the repo or in test data.
+- **Backups:** `android:allowBackup="false"` turns off Auto Backup and `adb backup`. The manifest has no `dataExtractionRules`, so on Android 12 and later a device-to-device transfer can still copy app data, including `known_hosts`. The file holds only public host keys.
+- **Repo and tests:** real keys and passwords are never stored in the repo or in test data. The tests use placeholder passwords against their own in-process server.
 
 ## Tests
 

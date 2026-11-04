@@ -11,7 +11,7 @@ Bastion is an SSH client. This repo holds the version for Android, built with Ko
 | `Android/app/` | The app: connection, SSH session and system information |
 | `Android/` | The Gradle project with its own wrapper |
 | `gradlew`, `gradlew.bat` | Root scripts that run `Android/gradlew` with `--project-dir Android`, so tools run from the root find the project |
-| `gradle/` | A copy of the wrapper files in `Android/gradle/wrapper/` |
+| `gradle/` | Symbolic links to the wrapper files in `Android/gradle/wrapper/` |
 | `docs/`, `zensical.toml`, `overrides/` | The documentation site |
 
 ## Getting started
@@ -28,7 +28,7 @@ Build a debug APK:
 ./gradlew assembleDebug
 ```
 
-Run the commands from the repo root; the root `gradlew` forwards to `Android/`. You need JDK 17 or later and the Android SDK with platform `android-35`, with `ANDROID_HOME` set or `sdk.dir` in `Android/local.properties`. See [Getting started](https://myrpisset.github.io/bastion-android/getting-started/) for details.
+Run the commands from the repo root; the root `gradlew` forwards to `Android/`. You need a JDK from 17 to 27 (the range Gradle 9.8.2 runs on) and the Android SDK with platform `android-35`, with `ANDROID_HOME` set or `sdk.dir` in `Android/local.properties`. See [Getting started](docs/getting-started.md) for details.
 
 ## More
 
