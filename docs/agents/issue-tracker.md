@@ -1,6 +1,6 @@
 # Issues
 
-GitHub Issues in `pissmyran/bastion_android` is the repo's issue tracker.
+GitHub Issues in `Myrpisset/bastion-android` is the repo's issue tracker.
 
 ## Working with issues
 
@@ -10,10 +10,44 @@ GitHub Issues in `pissmyran/bastion_android` is the repo's issue tracker.
 
 ## From a cloud session
 
-`gh issue` does not work in cloud sessions (GraphQL is disabled). Use REST:
+`gh issue` does not work in cloud sessions (GraphQL is disabled). Use REST. Set the issue number first:
 
-- Read: `gh api repos/pissmyran/bastion_android/issues/<n>` and `…/issues/<n>/comments`
-- List open: `gh api 'repos/pissmyran/bastion_android/issues?state=open'`
-- Create: `gh api repos/pissmyran/bastion_android/issues -f title='…' -f body='…'`
-- Comment: `gh api repos/pissmyran/bastion_android/issues/<n>/comments -f body='…'`
-- Close: `gh api -X PATCH repos/pissmyran/bastion_android/issues/<n> -f state=closed`
+```bash
+n=123
+```
+
+Read an issue:
+
+```bash
+gh api "repos/Myrpisset/bastion-android/issues/$n"
+```
+
+Read its comments:
+
+```bash
+gh api "repos/Myrpisset/bastion-android/issues/$n/comments"
+```
+
+List open issues:
+
+```bash
+gh api "repos/Myrpisset/bastion-android/issues?state=open"
+```
+
+Create an issue:
+
+```bash
+gh api repos/Myrpisset/bastion-android/issues -f title="Short title" -f body="Description"
+```
+
+Comment:
+
+```bash
+gh api "repos/Myrpisset/bastion-android/issues/$n/comments" -f body="Comment text"
+```
+
+Close:
+
+```bash
+gh api -X PATCH "repos/Myrpisset/bastion-android/issues/$n" -f state=closed
+```
