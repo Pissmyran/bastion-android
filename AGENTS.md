@@ -1,8 +1,8 @@
-# AGENTS.md – bastion_android
+# AGENTS.md – bastion-android
 
 Bastion for Android: the SSH client for Android, built with Kotlin, Gradle and Apache MINA SSHD.
 
-Read the shared rules at the start of every session: [GOVERNANCE.md](https://raw.githubusercontent.com/pissmyran/.github/main/GOVERNANCE.md) and [BASTION.md](https://raw.githubusercontent.com/pissmyran/.github/main/BASTION.md).
+Read the shared rules at the start of every session: [GOVERNANCE.md](https://raw.githubusercontent.com/Myrpisset/.github/main/GOVERNANCE.md) and [BASTION.md](https://raw.githubusercontent.com/Myrpisset/.github/main/BASTION.md).
 
 ## Read first
 
@@ -17,7 +17,7 @@ Read the shared rules at the start of every session: [GOVERNANCE.md](https://raw
 ./gradlew assembleDebug
 ```
 
-Run from the repository root; the root `gradlew` forwards to `Android/`. The Android SDK must be installed and `ANDROID_HOME` set.
+Run from the repository root; the root `gradlew` forwards to `Android/`. You need JDK 17 or later and the Android SDK with platform `android-35`, with `ANDROID_HOME` set. When `docs/`, `zensical.toml` or `overrides/` change, also run `zensical build --strict`.
 
 ## Rules
 

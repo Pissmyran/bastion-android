@@ -1,6 +1,6 @@
 # Issues
 
-GitHub Issues in `pissmyran/bastion_android` is the repo's issue tracker.
+GitHub Issues in `Myrpisset/bastion-android` is the repo's issue tracker.
 
 ## Working with issues
 
@@ -12,8 +12,8 @@ GitHub Issues in `pissmyran/bastion_android` is the repo's issue tracker.
 
 `gh issue` does not work in cloud sessions (GraphQL is disabled). Use REST:
 
-- Read: `gh api repos/pissmyran/bastion_android/issues/<n>` and `…/issues/<n>/comments`
-- List open: `gh api 'repos/pissmyran/bastion_android/issues?state=open'`
-- Create: `gh api repos/pissmyran/bastion_android/issues -f title='…' -f body='…'`
-- Comment: `gh api repos/pissmyran/bastion_android/issues/<n>/comments -f body='…'`
-- Close: `gh api -X PATCH repos/pissmyran/bastion_android/issues/<n> -f state=closed`
+- Read: `gh api repos/Myrpisset/bastion-android/issues/<n>` and `…/issues/<n>/comments`
+- List open: `gh api 'repos/Myrpisset/bastion-android/issues?state=open'`
+- Create: `gh api repos/Myrpisset/bastion-android/issues -f title='…' -f body='…'`
+- Comment: `gh api repos/Myrpisset/bastion-android/issues/<n>/comments -f body='…'`
+- Close: `gh api -X PATCH repos/Myrpisset/bastion-android/issues/<n> -f state=closed`
