@@ -33,5 +33,6 @@ Run the commands from the repo root; the root `gradlew` forwards to `Android/`. 
 ## More
 
 - [The documentation](https://myrpisset.github.io/bastion-android/): getting started, architecture, operations, sync format and releases
+- [The dependency graph](docs/operations.md#the-dependency-graph): how build-only dependencies on the buildscript and lint tool classpaths are kept patched and out of the app
 - [SECURITY.md](SECURITY.md): report a vulnerability
 - [CONTRIBUTING.md](CONTRIBUTING.md): contribute

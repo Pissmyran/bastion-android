@@ -7,3 +7,6 @@ site/
 Android/.gradle/
 Android/**/build/
 .gradle/
+
+# Python bytecode from tests/
+__pycache__/

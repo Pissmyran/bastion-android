@@ -53,7 +53,19 @@ Keep build tool dependencies apart from the app's runtime dependencies. Android 
 - **The build script's classpath** (`buildscript`): `classpath(...)` declares Kotlin Gradle Plugin and Commons Lang explicitly, so Renovate and Dependabot can update them. `configurations.classpath { resolutionStrategy.force(...) }` selects patched versions of the remaining build-only transitives (Bouncy Castle, jose4j, JDOM).
 - **The lint tool classpath** (`androidLintTool`, which AGP adds to each Android project): Android Lint runs from here, and the forcing above does not reach it. Dependency constraints raise Bouncy Castle, Guava, Commons Lang and HttpClient to patched versions. A constraint only raises a version and never lowers one.
 
-GitHub's automatic dependency submission resolves every configuration, `androidLintTool` included, and reports the result under `Android/settings.gradle.kts`. So an alert on that manifest can come from any configuration in the build. To find the configuration that resolves a flagged version, run `./gradlew :app:dependencies` and search the output for the module.
+GitHub's automatic dependency submission resolves every configuration, `androidLintTool` included, and reports the result under `Android/settings.gradle.kts`. So an alert on that manifest can come from any configuration in the build. To find the configuration that resolves a flagged version, search the output of both reports for the module.
+
+The app's configurations, `androidLintTool` included:
+
+```bash
+./gradlew :app:dependencies
+```
+
+The build script's classpath:
+
+```bash
+./gradlew buildEnvironment
+```
 
 If GitHub flags a vulnerable build tool dependency that only exists transitively, select the fixed version in the configuration that actually resolves it when Gradle and AGP support it, instead of filtering it out or moving it into the app. None of these dependencies may end up in the app's runtime.
 
