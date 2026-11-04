@@ -10,6 +10,7 @@ buildscript {
             "org.bouncycastle:bcutil-jdk18on:1.86",
             "org.bitbucket.b_c:jose4j:0.9.7",
             "org.jdom:jdom2:2.0.6.1",
+            "com.google.guava:guava:33.8.0-jre",
         )
     }
     dependencies {
