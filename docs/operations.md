@@ -26,6 +26,12 @@ pip install --upgrade zensical
 zensical build --strict
 ```
 
+When `.github/workflows/wiki-sync.yml` changes, also run the tests for its embedded Python script:
+
+```bash
+python3 -m unittest tests/test_wiki_sync.py
+```
+
 ## In CI
 
 | Check | When | What it does |
@@ -34,7 +40,7 @@ zensical build --strict
 | **Automatic Dependency Submission (Gradle)** | Every pull request and `main` | GitHub resolves the Gradle build and submits it to the dependency graph (`submit-gradle`), which feeds Dependabot alerts. |
 | **Documentation** (`.github/workflows/docs.yml`) | Pull requests that change `docs/`, `zensical.toml` or the docs and release workflows | Builds the site strictly with Zensical. Changes to `overrides/` alone do not trigger it, so build locally. |
 | **Release** (`.github/workflows/release.yml`) | Every push to `main` | Computes the next version and waits for `.github/release-required-checks`; see [Releases](release.md). |
-| **Wiki sync** (`.github/workflows/wiki-sync.yml`) | Pushes to `main` that change `README.md` or `docs/` | Regenerates the Wiki's Home, Documentation and sidebar pages as links to the documentation in the repo. |
+| **Wiki sync** (`.github/workflows/wiki-sync.yml`) | Pushes to `main` that change `README.md` or `docs/` | Regenerates the Wiki's Home, Documentation and sidebar pages as links to the documentation in the repo. Link extraction from `docs/index.md` is a linear scan, so large or malformed input cannot stall the job. `tests/test_wiki_sync.py` covers it, but CI does not run it. |
 
 The documentation workflow also runs every hour and on each published release, and republishes the site from the latest stable release tag.
 

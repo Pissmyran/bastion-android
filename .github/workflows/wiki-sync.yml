@@ -42,8 +42,27 @@ jobs:
           python3 <<'PY'
           import os
           import posixpath
-          import re
           from pathlib import Path
+
+          def find_links(text):
+              # Match the original link expression without rescanning suffixes.
+              start = 0
+              while (opening := text.find("[", start)) != -1:
+                  closing = text.find("]", opening + 1)
+                  if closing == -1:
+                      return
+                  if closing == opening + 1 or text[closing + 1:closing + 2] != "(":
+                      # Any opening bracket before this closing bracket fails too.
+                      start = closing + 1
+                      continue
+                  end = text.find(")", closing + 2)
+                  if end == -1:
+                      return
+                  if end == closing + 2:
+                      start = closing + 1
+                      continue
+                  yield text[opening + 1:closing], text[closing + 2:end]
+                  start = end + 1
 
           full = os.environ["REPOSITORY"]
           owner, repo = full.split("/", 1)
@@ -83,9 +102,10 @@ jobs:
 
           index_path = Path("docs/index.md")
           doc_links = []
+          seen_links = set()
           if index_path.exists():
               index = index_path.read_text(encoding="utf-8", errors="replace")
-              for label, href in re.findall(r"\[([^\]]+)\]\(([^)]+)\)", index):
+              for label, href in find_links(index):
                   href = href.strip()
                   if (
                       not href
@@ -103,7 +123,8 @@ jobs:
                   else:
                       url = f"{base}/blob/{branch}/{resolved}"
                   item = (label, url)
-                  if item not in doc_links:
+                  if item not in seen_links:
+                      seen_links.add(item)
                       doc_links.append(item)
 
           wiki = Path("_wiki")
