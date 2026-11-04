@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - A JDK, version 17 or later. The app is compiled to Java 17 bytecode, and the build does not require an exact JDK version.
-- The Android SDK with platform `android-35`, which `compileSdk` names. Set `ANDROID_HOME` to the SDK, or put `sdk.dir=<path>` in `Android/local.properties`, which Git ignores.
+- The Android SDK with platform `android-35`, which `compileSdk` names. Point the build at the SDK in one of two ways: set `ANDROID_HOME`, or put `sdk.dir=<path>` in `Android/local.properties`, which Git ignores. Android Gradle Plugin accepts either.
 
 Gradle is downloaded by the wrapper; its version is set in `Android/gradle/wrapper/gradle-wrapper.properties`.
 

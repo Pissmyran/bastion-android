@@ -28,7 +28,7 @@ Build a debug APK:
 ./gradlew assembleDebug
 ```
 
-Run the commands from the repo root; the root `gradlew` forwards to `Android/`. You need JDK 17 or later and the Android SDK with platform `android-35`, with `ANDROID_HOME` set. See [Getting started](https://myrpisset.github.io/bastion-android/getting-started/) for details.
+Run the commands from the repo root; the root `gradlew` forwards to `Android/`. You need JDK 17 or later and the Android SDK with platform `android-35`, with `ANDROID_HOME` set or `sdk.dir` in `Android/local.properties`. See [Getting started](https://myrpisset.github.io/bastion-android/getting-started/) for details.
 
 ## More
 

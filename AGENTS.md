@@ -17,7 +17,7 @@ Read the shared rules at the start of every session: [GOVERNANCE.md](https://raw
 ./gradlew assembleDebug
 ```
 
-Run from the repository root; the root `gradlew` forwards to `Android/`. You need JDK 17 or later and the Android SDK with platform `android-35`, with `ANDROID_HOME` set. When `docs/`, `zensical.toml` or `overrides/` change, also run `zensical build --strict`.
+Run from the repository root; the root `gradlew` forwards to `Android/`. You need JDK 17 or later and the Android SDK with platform `android-35`, with `ANDROID_HOME` set or `sdk.dir` in `Android/local.properties`. When `docs/`, `zensical.toml` or `overrides/` change, also run `zensical build --strict`.
 
 ## Rules
 
