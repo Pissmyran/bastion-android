@@ -33,5 +33,5 @@ python3 -m unittest tests/test_wiki_sync.py
 
 ## Rules
 
-- **Build scripts and runtime stay apart** in Gradle; see `docs/operations.md`.
+- **Build scripts and runtime stay apart** in Gradle. Build-only transitives are patched where they resolve: on the buildscript classpath with `resolutionStrategy.force`, and on the lint tool classpath (`androidLintTool`) with dependency constraints. See `docs/operations.md`.
 - **Extra care:** host key verification and Gradle dependencies.
