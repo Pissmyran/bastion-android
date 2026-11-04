@@ -38,7 +38,7 @@ python3 -m unittest tests/test_wiki_sync.py
 | --- | --- | --- |
 | **CodeQL** (GitHub's default setup) | Every pull request and `main` | Analyzes `java-kotlin` and `actions`. For Kotlin it runs Gradle autobuild, which calls the root `testClasses` task; `Android/build.gradle.kts` maps that task to `:app:assembleDebug`. Errors and high or critical security alerts block merging. |
 | **Automatic Dependency Submission (Gradle)** | Every pull request and `main` | GitHub resolves the Gradle build and submits it to the dependency graph (`submit-gradle`), which feeds Dependabot alerts. |
-| **Documentation** (`.github/workflows/docs.yml`) | Pull requests that change `docs/`, `zensical.toml` or the docs and release workflows | Builds the site strictly with Zensical. Changes to `overrides/` alone do not trigger it, so build locally. |
+| **Documentation** (`.github/workflows/docs.yml`) | Pull requests that change `docs/`, `overrides/`, `zensical.toml` or the docs and release workflows | Builds the site strictly with Zensical. |
 | **Release** (`.github/workflows/release.yml`) | Every push to `main` | Computes the next version and waits for `.github/release-required-checks`; see [Releases](release.md). |
 | **Wiki sync** (`.github/workflows/wiki-sync.yml`) | Pushes to `main` that change `README.md` or `docs/` | Regenerates the Wiki's Home, Documentation and sidebar pages as links to the documentation in the repo. Link extraction from `docs/index.md` is a linear scan, so large or malformed input cannot stall the job. `tests/test_wiki_sync.py` covers it, but CI does not run it. |
 
