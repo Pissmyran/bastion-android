@@ -52,6 +52,7 @@ The UI text is in Swedish.
 
 - **Host keys** use persistent trust on first use (TOFU) against `known_hosts` in the app's private files directory. An unknown host is accepted on first connection and written to the file; a changed key for the same host and port is rejected.
 - **Fail closed:** read, parse and write errors in `known_hosts` reject the connection and never fall back to `AcceptAllServerKeyVerifier`.
+- **One writer at a time:** every session has its own verifier, but all of them share one process-wide lock around host key verification and always reload `known_hosts`. Concurrent first connections therefore cannot overwrite each other's pins, and a key enrolled by one session is seen by the next.
 - **Credentials** are never stored. Passwords live only in the input field and in memory for the duration of a connection, and `ConnectionCredentials.toString()` masks the password.
 - **Backups:** `android:allowBackup="false"` turns off Auto Backup and `adb backup`. The manifest has no `dataExtractionRules`, so on Android 12 and later a device-to-device transfer can still copy app data, including `known_hosts`. The file holds only public host keys.
 - **Repo and tests:** real keys and passwords are never stored in the repo or in test data. The tests use placeholder passwords against their own in-process server.
@@ -61,6 +62,7 @@ The UI text is in Swedish.
 Unit tests under `Android/app/src/test/kotlin/se/denied/bastion/` run on the JVM:
 
 - `ssh/BastionSshSessionTest.kt` starts a real Apache MINA SSHD server in the process and verifies authentication, exec, the interactive shell, heartbeats and host key handling without the system's own sshd.
+- `ssh/FailClosedKnownHostsServerKeyVerifierTest.kt` releases many verifiers into `verifyServerKey` at once and checks that every concurrent first enrollment is kept and every replacement key rejected.
 - `ConnectionRequestTest.kt` covers input validation.
 - `ssh/SystemProbeTest.kt` covers snapshot parsing.
 
