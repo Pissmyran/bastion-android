@@ -9,6 +9,8 @@ Read the shared rules at the start of every session: [GOVERNANCE.md](https://raw
 1. [docs/architecture.md](docs/architecture.md): components and security boundaries.
 2. [docs/operations.md](docs/operations.md): verification before pushing.
 3. [docs/sync-format.md](docs/sync-format.md): when the host list or sync is involved.
+4. [docs/release.md](docs/release.md): when a pull request title or the release process is involved.
+5. [docs/agents/issue-tracker.md](docs/agents/issue-tracker.md) and [docs/agents/domain.md](docs/agents/domain.md): before working with issues or the domain.
 
 ## Commands
 
@@ -34,4 +36,5 @@ python3 -m unittest tests/test_wiki_sync.py
 ## Rules
 
 - **Build scripts and runtime stay apart** in Gradle. Build-only transitives are patched where they resolve: on the buildscript classpath with `resolutionStrategy.force`, and on the lint tool classpath (`androidLintTool`) with dependency constraints. See `docs/operations.md`.
+- **Language:** the app's UI text is Swedish (see [docs/architecture.md](docs/architecture.md#what-the-app-does)).
 - **Extra care:** host key verification and Gradle dependencies.
