@@ -1,40 +1,27 @@
-# AGENTS.md – bastion-android
+# AGENTS.md
 
-Bastion for Android: the SSH client for Android, built with Kotlin, Gradle and Apache MINA SSHD.
+Scope
+- Work only in this repo. Never read, change or open PRs against other repos.
+- Do exactly what is asked. No extra files, lines, steps or config.
+- Repo-specific rules: see REPO.md.
 
-Read the shared rules at the start of every session: [GOVERNANCE.md](https://raw.githubusercontent.com/Myrpisset/.github/main/GOVERNANCE.md) and [BASTION.md](https://raw.githubusercontent.com/Myrpisset/.github/main/BASTION.md).
+Workflow
+- Never change workflows. Only Renovate and Dependabot may.
+- Never work around rulesets, checks or branch rules.
+- Ask before deviating from a tool's standard setup.
 
-## Read first
+Git and review
+- Squash merge, signed commits, auto-merge on.
+- A review conversation is resolved only after the comment is read in full and the flagged code is analyzed and fixed.
+- Nothing personal in code or docs. Generic placeholders only.
 
-1. [docs/architecture.md](docs/architecture.md): components and security boundaries.
-2. [docs/operations.md](docs/operations.md): verification before pushing.
-3. [docs/sync-format.md](docs/sync-format.md): when the host list or sync is involved.
-4. [docs/release.md](docs/release.md): when a pull request title or the release process is involved.
-5. [docs/agents/issue-tracker.md](docs/agents/issue-tracker.md) and [docs/agents/domain.md](docs/agents/domain.md): before working with issues or the domain.
+Reporting and context
+- Report only the result, and only when done or blocked. No progress updates, no recaps.
+- Never poll. Never subscribe to PR, CI or repository activity. Never read GitHub notifications.
+- React only to warnings, errors and security alerts. Ignore routine confirmations such as bot comments and merge or subscription notices.
+- Load only the tools, files and history the current task needs.
 
-## Commands
-
-```bash
-./gradlew test
-./gradlew assembleDebug
-```
-
-Run from the repository root; the root `gradlew` forwards to `Android/`. You need a JDK from 17 to 27 (the range Gradle 9.8.2 runs on) and the Android SDK with platform `android-35`, with `ANDROID_HOME` set or `sdk.dir` in `Android/local.properties`.
-
-When `docs/`, `zensical.toml` or `overrides/` change, also build the documentation:
-
-```bash
-zensical build --strict
-```
-
-When `.github/workflows/wiki-sync.yml` changes, also run:
-
-```bash
-python3 -m unittest tests/test_wiki_sync.py
-```
-
-## Rules
-
-- **Build scripts and runtime stay apart** in Gradle. Build-only transitives are patched where they resolve: on the buildscript classpath with `resolutionStrategy.force`, and on the lint tool classpath (`androidLintTool`) with dependency constraints. See `docs/operations.md`.
-- **Language:** the app's UI text is Swedish (see [docs/architecture.md](docs/architecture.md#what-the-app-does)).
-- **Extra care:** host key verification and Gradle dependencies.
+Language
+- Code, commits, PRs, labels: English.
+- Documentation: English first, Swedish copy in /sv.
+- Talk to the owner in Swedish.
