@@ -14,7 +14,7 @@ buildscript {
         )
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:9.5.0")
+        classpath("com.android.tools.build:gradle:9.5.1")
 
         // AGP exposes these as transitive build-tool dependencies, but GitHub
         // dependency submission can alert on transitive Gradle dependencies
