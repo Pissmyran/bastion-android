@@ -1,5 +1,3 @@
-> Guide: [AI- och Copilot-inställningar på GitHub](https://github.com/pissmyran/.github/blob/main/public/ai-och-copilot.md) · [English](https://github.com/pissmyran/.github/blob/main/public/eng/ai-and-copilot.md)
-
 # Bastion for Android
 
 **Documentation:** [myrpisset.github.io/bastion-android](https://myrpisset.github.io/bastion-android/)
